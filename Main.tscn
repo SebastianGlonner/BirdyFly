@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxwkudaigkyt2"]
+
+[ext_resource type="Script" path="res://Main.cs" id="1_mje7g"]
+[ext_resource type="PackedScene" uid="uid://dxswl84l87yxs" path="res://IgMenu.tscn" id="2_gvkld"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_mje7g")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.4621)
+
+[node name="IgMenu" parent="." instance=ExtResource("2_gvkld")]
+unique_name_in_owner = true
+process_mode = 3

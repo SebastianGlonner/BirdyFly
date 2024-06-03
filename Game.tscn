@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2xjr5ghspuxw"]
+
+[ext_resource type="Script" path="res://Game.cs" id="1_2exed"]
+[ext_resource type="Texture2D" uid="uid://cpotdt1qi7w8e" path="res://craiyon_102134_Infinite_Mountain_Ranges_out_to_the_horizon.png" id="1_8oii4"]
+[ext_resource type="PackedScene" uid="uid://divesqjdcg65s" path="res://Player.tscn" id="2_1o6tq"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dywf1"]
+size = Vector2(15, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_51y40"]
+albedo_texture = ExtResource("1_8oii4")
+albedo_texture_force_srgb = true
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_2exed")
+
+[node name="Background" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -5)
+mesh = SubResource("PlaneMesh_dywf1")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_51y40")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.811992, 0.583669, 0, -0.583669, 0.811992, 0, 1.77668, 2.11438)
+
+[node name="player" parent="." instance=ExtResource("2_1o6tq")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.245421, 0)
