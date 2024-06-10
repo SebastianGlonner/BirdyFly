@@ -15,6 +15,7 @@ public partial class Main : Node
 		(GetNode("%IgMenu") as IgMenu).Pause += PauseGame;
 		(GetNode("%IgMenu") as IgMenu).Start += StartGame;
 		PauseGame();
+		(GetNode("%IgMenu") as IgMenu).setMessage("");
 
 		GlobalEvents.DyingEvent += Dying;
 		GlobalEvents.ScoreEvent += (object sender, EventArgs e) => {
@@ -43,6 +44,7 @@ public partial class Main : Node
 			this._currentGame.Free();
 		}
 
+        Dash.reset();
 		this._currentGame = ((PackedScene)ResourceLoader.Load("res://Game.tscn")).Instantiate();
 		this.AddChild(_currentGame);
 		GetTree().Paused = false;

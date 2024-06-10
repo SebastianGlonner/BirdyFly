@@ -12,9 +12,19 @@ public partial class Player : CharacterBody3D
 	private Vector3 clampGround = new Vector3(0, -2, 0);
 	private Vector3 clampAir = new Vector3(0, 2, 0);
 
+	private bool isDashing = false;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+        Dash.singleton().StartEvent += (object sender, EventArgs e) => {
+			isDashing = false;
+			SetCollisionMaskValue(1, true);
+		};
+        Dash.singleton().EndEvent  += (object sender, EventArgs e) => {
+			isDashing = true;
+			SetCollisionMaskValue(1, false);
+		};
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,13 +37,13 @@ public partial class Player : CharacterBody3D
 		Vector3 direction = this.getKeyboardDirection();
 
 		Velocity = Velocity.Lerp(direction * this._speed, accelaration);
-		// Position += movement;
-		// Position = Position.Clamp(clampGround, clampAir);
-
+		
 		var collision3D = MoveAndCollide(Velocity * (float)delta);
-		if (collision3D != null) {
+		if (collision3D != null && !isDashing) {
 			this.kinematicCollide(collision3D);
 		}
+		
+		Position = Position.Clamp(clampGround, clampAir);
     }
 	
 
@@ -45,7 +55,7 @@ public partial class Player : CharacterBody3D
 		{
 			direction.Y += 1;
 		} else {
-			direction.Y -= 1;
+			// direction.Y -= 1;
 		}
 		
 		return direction;
@@ -56,4 +66,5 @@ public partial class Player : CharacterBody3D
 		
 		GlobalEvents.InvokeDying();
 	}
+
 }
