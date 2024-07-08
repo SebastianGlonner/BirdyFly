@@ -12,18 +12,17 @@ public partial class Player : CharacterBody3D
 	private Vector3 clampGround = new Vector3(0, -2, 0);
 	private Vector3 clampAir = new Vector3(0, 2, 0);
 
-	private bool isDashing = false;
+	private Vector3 currentDirection;
+
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
         Dash.singleton().StartEvent += (object sender, EventArgs e) => {
-			isDashing = false;
-			SetCollisionMaskValue(1, true);
+			SetCollisionMaskValue(1, false);
 		};
         Dash.singleton().EndEvent  += (object sender, EventArgs e) => {
-			isDashing = true;
-			SetCollisionMaskValue(1, false);
+			SetCollisionMaskValue(1, true);
 		};
 	}
 
@@ -34,37 +33,46 @@ public partial class Player : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
-		Vector3 direction = this.getKeyboardDirection();
+		Vector3 direction = this.calculateDirection();
+		// Vector3 direction = this.currentDirection;
 
 		Velocity = Velocity.Lerp(direction * this._speed, accelaration);
 		
+		Position = Position.Clamp(clampGround, clampAir);
+		
 		var collision3D = MoveAndCollide(Velocity * (float)delta);
-		if (collision3D != null && !isDashing) {
+		if (collision3D != null) {
 			this.kinematicCollide(collision3D);
 		}
-		
-		Position = Position.Clamp(clampGround, clampAir);
     }
-	
-
-	private Vector3 getKeyboardDirection()
-	{
-		Vector3 direction = Vector3.Zero;
-
-		if (Input.IsActionPressed("fly_up"))
-		{
-			direction.Y += 1;
-		} else {
-			// direction.Y -= 1;
-		}
-		
-		return direction;
-	}
 
 	private void kinematicCollide(KinematicCollision3D collision3D) {
 		EmitSignal(SignalName.HitPipe);
 		
 		GlobalEvents.InvokeDying();
+	}
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+		if (Input.IsActionPressed("dash")) {
+            Dash.singleton().start();
+		}
+
+		// this.currentDirection = calculateDirection();
+    }
+
+	private Vector3 calculateDirection() {
+		
+		Vector3 direction = Vector3.Zero;
+		if (Input.IsActionPressed("fly_up"))
+		{
+			GD.Print("test");
+			direction.Y += 1;
+		} else {
+			// direction.Y -= 1;
+		}
+
+		return direction;
 	}
 
 }

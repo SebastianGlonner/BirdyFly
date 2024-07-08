@@ -54,11 +54,6 @@ public class ObstaclesSpawnManager {
     public void process(double delta) {
         Dash.singleton()._process(delta);
 
-
-		if (Input.IsActionPressed("dash")) {
-            Dash.singleton().start();
-		}
-
         spawnMeter._process(delta * _speed);
 
         this._speed = Dash.singleton().calculateSpeed(this._speed, this._baseSpeed);
@@ -69,7 +64,7 @@ public class ObstaclesSpawnManager {
     }
 
     private void removeOldPipes() {
-        
+        // TODO instead let the pipes hit some obstacle which indicates removable
         foreach(Node3D pipe in pipes.ToList()) {
             if (pipe.Position.X < endPointX) {
                 pipes.Remove(pipe);

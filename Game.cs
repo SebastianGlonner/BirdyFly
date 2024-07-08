@@ -5,6 +5,7 @@ public partial class Game : Node3D
 {
 	private ObstaclesSpawnManager obstaclesSpawnManager;
 	// Called when the node enters the scene tree for the first time.
+	
 	public override void _Ready()
 	{
 		this.obstaclesSpawnManager = new ObstaclesSpawnManager(this);

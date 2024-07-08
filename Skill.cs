@@ -1,7 +1,10 @@
 using System;
 using System.Threading.Tasks.Dataflow;
+using Godot;
 
 public class Skill {
+
+    protected bool restartOnRestart = false; // not implemented
 
     protected FlexibelTimer timespan;
     protected FlexibelTimer cooldown;
@@ -26,7 +29,7 @@ public class Skill {
     }
 
     public bool start() {
-        if (cooldown.isActive()) {
+        if (timespan.isActive() || cooldown.isActive()) {
             return false;
         }
         StartEvent?.Invoke(this, EventArgs.Empty);
@@ -36,5 +39,9 @@ public class Skill {
 
     public Boolean isActive() {
         return timespan.isActive();
+    }
+
+    public float cooldownPercent() {
+        return cooldown.TimeoutPercent();
     }
 }

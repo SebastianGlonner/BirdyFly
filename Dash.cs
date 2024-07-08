@@ -13,7 +13,7 @@ public class Dash : Skill {
         return instance;
     }
     static public void reset() {
-        Dash.instance = new(0.02f, 2f);
+        Dash.instance = new(0.2f, 3.5f);
     }
 
     public float dashSpeed = 30f;

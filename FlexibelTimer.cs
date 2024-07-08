@@ -1,11 +1,14 @@
 using System;
+using Godot;
 
 public class FlexibelTimer {
-    private float currentTime = 0;
+    public float currentTime = 0;
     private float timeout = 0;
     private float halftime = 0;
 
     private bool inHalftime = false;
+
+    private float timeoutPercent = 0;
 
     private bool active = false;
     private bool iterative = false;
@@ -31,6 +34,7 @@ public class FlexibelTimer {
 
         this.currentTime += (float) delta;
         inHalftime = currentTime >= halftime;
+        this.timeoutPercent = (this.currentTime * 100) / this.timeout;
         if (this.currentTime >= timeout) {
             this.InvokeTimeout();
             this.currentTime = 0;
@@ -64,5 +68,9 @@ public class FlexibelTimer {
 
     public bool overHalftime() {
         return inHalftime;
+    }
+
+    public float TimeoutPercent() {
+        return timeoutPercent;
     }
 }

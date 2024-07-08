@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cpotdt1qi7w8e"
 path.s3tc="res://.godot/imported/craiyon_102134_Infinite_Mountain_Ranges_out_to_the_horizon.png-00940a3bcb85cf0b0d7539e39b0ae2dc.s3tc.ctex"
+path.etc2="res://.godot/imported/craiyon_102134_Infinite_Mountain_Ranges_out_to_the_horizon.png-00940a3bcb85cf0b0d7539e39b0ae2dc.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://craiyon_102134_Infinite_Mountain_Ranges_out_to_the_horizon.png"
-dest_files=["res://.godot/imported/craiyon_102134_Infinite_Mountain_Ranges_out_to_the_horizon.png-00940a3bcb85cf0b0d7539e39b0ae2dc.s3tc.ctex"]
+dest_files=["res://.godot/imported/craiyon_102134_Infinite_Mountain_Ranges_out_to_the_horizon.png-00940a3bcb85cf0b0d7539e39b0ae2dc.s3tc.ctex", "res://.godot/imported/craiyon_102134_Infinite_Mountain_Ranges_out_to_the_horizon.png-00940a3bcb85cf0b0d7539e39b0ae2dc.etc2.ctex"]
 
 [params]
 
