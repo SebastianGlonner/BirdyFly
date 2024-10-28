@@ -11,6 +11,8 @@ public partial class Player : CharacterBody3D
 
 	private Vector3 clampGround = new Vector3(0, -2, 0);
 	private Vector3 clampAir = new Vector3(0, 2, 0);
+	// private Vector3 clampGround = new Vector3(0, 0, 0);
+	// private Vector3 clampAir = new Vector3(0, 0, 0);
 
 	private Vector3 currentDirection;
 
@@ -66,10 +68,9 @@ public partial class Player : CharacterBody3D
 		Vector3 direction = Vector3.Zero;
 		if (Input.IsActionPressed("fly_up"))
 		{
-			GD.Print("test");
 			direction.Y += 1;
 		} else {
-			// direction.Y -= 1;
+			direction.Y -= 1;
 		}
 
 		return direction;

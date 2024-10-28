@@ -17,6 +17,8 @@ public partial class Pipe : Node3D
 	}
 
 	private void Leave(Node node) {
-		GlobalEvents.InvokeScore();
+		if (node is Player) {
+			GlobalEvents.InvokeScore();
+		}
 	}
 }

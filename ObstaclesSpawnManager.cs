@@ -14,7 +14,7 @@ public class ObstaclesSpawnManager {
     private float _appearanceMeter = 4;
     
     private Node world;
-    private float startPointX = 6;
+    private float startPointX = 8;
     private float endPointX = -8;
     private Vector3 direction = new Vector3(-1, 0, 0);
 	private PackedScene pipeScene;
@@ -22,8 +22,9 @@ public class ObstaclesSpawnManager {
 
     private List<Node3D> pipes = new();
 
-    private float spawnYRangeMax = 0f;
-    // private float spawnYRangeMax = 3f;
+    // private float spawnYRangeMax = 0f;
+    private float spawnYRangeMax = 3f;
+    private double lastYSpwan = 0;
 
     private Random rnd = new();
 
@@ -46,7 +47,13 @@ public class ObstaclesSpawnManager {
     public void spwan() {
         Node3D pipe = pipeScene.Instantiate<Node3D>();
         pipes.Add(pipe);
-        pipe.Position = new Vector3(startPointX, (float)(rnd.NextDouble() * spawnYRangeMax - spawnYRangeMax / 2), 0);
+        double nextSpwanY = 0;
+        int i = 0;
+        while (Math.Abs(lastYSpwan - nextSpwanY) < 2 && i < 100) {
+            nextSpwanY = rnd.NextDouble() * spawnYRangeMax - spawnYRangeMax / 2;
+            i++;
+        }
+        pipe.Position = new Vector3(startPointX, (float)nextSpwanY, 0);
         world.AddChild(pipe);
         removeOldPipes();
     }
